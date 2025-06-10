@@ -157,12 +157,14 @@ def modificarNombreRealAntMan():
         - Si lo encuentra, modifica su atributo `real_name` a 'Scott Lang' y muestra un mensaje indicando el cambio.
         - Si no lo encuentra, imprime un mensaje indicando que 'Ant Man' no está en la lista.
     """
-    for personaje in listaPersonajes:
-        if personaje.name == "Ant Man":
-            personaje.real_name = "Scott Lang"
-            print(f"El nombre real de {personaje.name} ha sido modificado a {personaje.real_name}.")
-            return
-    print("Ant-Man no se encuentra en la lista.")
+    listaPersonajes.sort_by_criterion("nombre")
+    pos = listaPersonajes.search("Ant Man", "nombre")
+    if pos:
+        personaje = listaPersonajes[pos]
+        personaje.real_name = "Scott Lang"
+        print(f"El nombre real de {personaje.name} ha sido modificado a {personaje.real_name}.")
+    else:
+        print("Ant-Man no se encuentra en la lista.")
 
 def mostrarPorPalabraClave():
     """
@@ -184,12 +186,23 @@ def mostrarPorPalabraClave():
                 break
 
 def eliminarBuscado(buscado):
-    for personaje in listaPersonajes:
-        if personaje.name == buscado:
-            listaPersonajes.remove(personaje)
-            print(f"Se eliminó el personaje:\n{personaje}")
-            return
-    print(f"{buscado} no se encuentra en la lista.")
+    """
+    Elimina un personaje de la lista según su nombre.
+
+    Funcionamiento:
+        - Ordena la lista `listaPersonajes` utilizando el criterio "nombre".
+        - Utiliza el método `search` para encontrar la posición del personaje en la lista.
+        - Si lo encuentra, lo elimina de la lista y muestra su información.
+        - Si no lo encuentra, imprime un mensaje indicando que no está en la lista.
+    """
+    listaPersonajes.sort_by_criterion("nombre")
+    pos = listaPersonajes.search(buscado, "nombre")
+    if pos:
+        personaje = listaPersonajes[pos]
+        listaPersonajes.remove(personaje)
+        print(f"Se eliminó el personaje:\n{personaje}")
+    else:
+        print(f"{buscado} no se encuentra en la lista.")
             
 print()
 print("-------------------------")
